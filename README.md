@@ -25,7 +25,7 @@ let comment: String? = matchedCodeOwner.inlineComment
 ```
 
 ## Requirements
-Swift 6.0 or laater
+Swift 6.0.0 or later
 
 ## Installation
 
