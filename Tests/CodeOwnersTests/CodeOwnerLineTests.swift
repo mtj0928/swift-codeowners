@@ -15,7 +15,7 @@ struct CodeOwnerLineTests {
             ]),
             owners: [
                 .user(.userName("owner")),
-                .group(GroupIdentifier(org: "org", name: "team")),
+                .team(TeamIdentifier(organization: "org", name: "team")),
             ],
             inlineComment: "#comment"
         )))

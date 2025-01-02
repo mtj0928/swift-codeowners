@@ -1,4 +1,5 @@
 import Foundation
+
 public enum CodeOwnerLine: Sendable, Equatable {
     case codeOwner(CodeOwner)
     case comment(String)

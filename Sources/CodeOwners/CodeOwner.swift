@@ -10,9 +10,9 @@ public struct CodeOwner: Sendable, Equatable {
     }
 }
 
-public enum Owner: Sendable, Equatable  {
+public enum Owner: Sendable, Equatable {
     case user(UserIdentifier)
-    case group(GroupIdentifier)
+    case team(TeamIdentifier)
 
     public static func parse(_ tokens: [Token]) -> Owner? {
         if tokens.count == 1 {
@@ -30,24 +30,24 @@ public enum Owner: Sendable, Equatable  {
                case .identifier(let groupName) = tokens[2],
                organization.hasPrefix("@")
             {
-                return .group(GroupIdentifier(org: organization.replacingOccurrences(of: "@", with: ""), name: groupName))
+                return .team(TeamIdentifier(organization: organization.replacingOccurrences(of: "@", with: ""), name: groupName))
             }
         }
         return nil
     }
 }
 
-public enum UserIdentifier: Sendable, Equatable  {
+public enum UserIdentifier: Sendable, Equatable {
     case email(String)
     case userName(String)
 }
 
-public struct GroupIdentifier: Sendable, Equatable  {
-    public var org: String
+public struct TeamIdentifier: Sendable, Equatable {
+    public var organization: String
     public var name: String
 
-    public init(org: String, name: String) {
-        self.org = org
+    public init(organization: String, name: String) {
+        self.organization = organization
         self.name = name
     }
 }

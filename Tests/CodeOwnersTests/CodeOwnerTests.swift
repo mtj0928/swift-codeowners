@@ -24,7 +24,7 @@ struct CodeOwnerTests {
         #expect(codeOwners.codeOwner(pattern: "foo.js")?.owners == [.user(.userName("js-owner"))])
         #expect(codeOwners.codeOwner(pattern: "foo/bar.js")?.owners == [.user(.userName("js-owner"))])
         #expect(codeOwners.codeOwner(pattern: "foo/bar.go")?.owners == [.user(.email("docs@example.com"))])
-        #expect(codeOwners.codeOwner(pattern: "foo.txt")?.owners == [.group(GroupIdentifier(org: "octo-org", name: "octocats"))])
+        #expect(codeOwners.codeOwner(pattern: "foo.txt")?.owners == [.team(TeamIdentifier(organization: "octo-org", name: "octocats"))])
     }
 
     @Test
