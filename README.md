@@ -7,10 +7,14 @@ A library which can analyze `CODEOWNERS` of GitHub in Swift.
 ```swift
 import CodeOwners
 
-let codeOwnersString: String = ... // Load CODEOWNERS file as String
+// Load CODEOWNERS file as String
+let codeOwnersString: String = """
+Sources/Foo @foo
+Sources/Bar @bar @org/bar-team
+"""
 let codeOwners = CodeOwners.parse(file: codeOwnersFile)
 
-guard let matchedCodeOwner = codeOwners.codeOwner(pattern: "foo/bar/baz.swift") else {
+guard let matchedCodeOwner = codeOwners.codeOwner(pattern: "Sources/Foo/Foo.swift") else {
     // No matched owner
     return
 }
