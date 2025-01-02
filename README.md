@@ -1,6 +1,6 @@
 #  swift-codeowners
 
-A library which can analyze `CODEOWNERS` of GitHub in Swift.
+Analyze `CODEOWNERS` of GitHub in Swift.
 
 ## How to Use
 
