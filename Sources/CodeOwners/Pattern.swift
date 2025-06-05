@@ -1,13 +1,21 @@
+/// A path pattern parsed from a ``CODEOWNERS`` entry.
 public struct Pattern: Sendable, Equatable  {
+    /// Raw tokens representing the pattern.
     public var tokens: [Token]
+    /// Indicates whether the pattern refers to a directory.
     public var isDirectory: Bool {
         tokens.last == .slash
     }
 
+    /// Creates a new ``Pattern`` from tokens.
+    /// - Parameter tokens: The pattern tokens.
     public init(tokens: [Token]) {
         self.tokens = tokens
     }
 
+    /// Determines whether the pattern matches the given path.
+    /// - Parameter text: The path to test.
+    /// - Returns: `true` if the pattern matches `text`.
     public func match(_ text: String) -> Bool {
         let pathPatterns = tokens.split(separator: .slash).compactMap { PathPattern(tokens: Array($0)) }
         let stringPathComponents = text.split(separator: "/").map { String($0) }

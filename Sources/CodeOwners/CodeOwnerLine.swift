@@ -1,18 +1,30 @@
 import Foundation
 
+/// A line within a ``CODEOWNERS`` file.
 public enum CodeOwnerLine: Sendable, Equatable {
+    /// A valid code owner declaration.
     case codeOwner(CodeOwner)
+    /// A standalone comment line.
     case comment(String)
+    /// A line that couldn't be parsed.
     case invalid(line: String, reason: CodeOwnerLineInvalidReason)
 }
 
+/// Reasons why parsing a line failed.
 public enum CodeOwnerLineInvalidReason: Error, Sendable, Equatable {
+    /// The line was empty or contained only whitespace.
     case emptyLine
+    /// The line included an invalid owner entry.
     case invalidOwner
+    /// A comment was placed in the middle of the declaration.
     case intermediateComment
 }
 
 extension CodeOwnerLine {
+    /// Parses a single line from a ``CODEOWNERS`` file.
+    ///
+    /// - Parameter line: The raw line text.
+    /// - Returns: The parsed ``CodeOwnerLine`` or `nil` if the line was empty.
     public static func parse(line: String) -> CodeOwnerLine? {
         let line = line.trimmingCharacters(in: .whitespacesAndNewlines)
 

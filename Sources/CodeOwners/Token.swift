@@ -1,12 +1,23 @@
+/// Lexical tokens used to parse ``CODEOWNERS`` lines.
 public enum Token: Equatable, Sendable {
-    case slash // "/"
-    case asterisk // "*"
-    case questionMark // "?"
-    case consecutiveAsterisk // "**"
-    case comment(String) // "#"
+    /// A `/` character.
+    case slash
+    /// A single `*` wildcard.
+    case asterisk
+    /// A single `?` wildcard.
+    case questionMark
+    /// A double `**` wildcard.
+    case consecutiveAsterisk
+    /// A comment starting with `#`.
+    case comment(String)
+    /// Any other identifier fragment.
     case identifier(String)
-    case space // " "
+    /// A space character used to delimit owners.
+    case space
 
+    /// Tokenizes a line from a ``CODEOWNERS`` file.
+    /// - Parameter line: The raw line text.
+    /// - Returns: An array of ``Token`` values representing the line.
     public static func tokenize(line: String) -> [Token] {
         var index = line.startIndex
 
