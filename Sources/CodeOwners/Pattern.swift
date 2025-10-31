@@ -9,7 +9,7 @@ public struct Pattern: Sendable, Equatable  {
     }
 
     public func match(_ text: String) -> Bool {
-        let pathPatterns = tokens.split(separator: .slash).compactMap { PathPattern(tokens: Array($0)) }
+        let pathPatterns = tokens.split(separator: .slash).map { PathPattern(tokens: Array($0)) }
         let stringPathComponents = text.split(separator: "/").map { String($0) }
 
         if pathPatterns.count == 1 {
@@ -77,14 +77,12 @@ public struct Pattern: Sendable, Equatable  {
         case consecutiveAsterisk
         case normal([Token])
 
-        init?(tokens: [Token]) {
+        init(tokens: [Token]) {
             if tokens.count == 1,
                tokens[0] == .consecutiveAsterisk {
                 self = .consecutiveAsterisk
-            } else if tokens.allSatisfy({ $0 != .consecutiveAsterisk }){
-                self = .normal(tokens)
             } else {
-                return nil
+                self = .normal(tokens)
             }
         }
 
@@ -123,9 +121,9 @@ public struct Pattern: Sendable, Equatable  {
                 } else {
                     return false
                 }
-            case .asterisk:
+            case .asterisk, .consecutiveAsterisk:
                 if tokens.count == 1 {
-                    // The pattern is "*", and it matches all string.
+                    // The pattern is "*" or "**", and it matches all string.
                     return true
                 } else if case .identifier(let nextString) = tokens[1] {
                     // ex:
@@ -159,9 +157,6 @@ public struct Pattern: Sendable, Equatable  {
                     }
                     return false
                 }
-            case .consecutiveAsterisk:
-                assertionFailure("Logic error")
-                return true
             }
             return false
         }

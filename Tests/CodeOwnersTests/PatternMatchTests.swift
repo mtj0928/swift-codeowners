@@ -77,6 +77,29 @@ struct PatternMatchTests {
         let tokens = Token.tokenize(line: "/apps/github")
         let pattern = Pattern(tokens: tokens)
         #expect(pattern.match("/apps/github/foo"))
+    }
 
+    @Test
+    func patternMatchTest_consecutiveAsterisk() async throws {
+        // Leading
+        #expect(Pattern(tokens: Token.tokenize(line: "**/foo/bar")).match("a/b/foo/bar"))
+        #expect(!Pattern(tokens: Token.tokenize(line: "**/foo/bar")).match("a/b/foo/baz"))
+
+        // Trailing
+        #expect(Pattern(tokens: Token.tokenize(line: "abc/**")).match("abc/foo/bar"))
+        #expect(!Pattern(tokens: Token.tokenize(line: "abc/**")).match("abcd/foo/bar"))
+
+        // Center
+        #expect(Pattern(tokens: Token.tokenize(line: "a/**/b")).match("a/b"))
+        #expect(Pattern(tokens: Token.tokenize(line: "a/**/b")).match("a/x/b"))
+        #expect(Pattern(tokens: Token.tokenize(line: "a/**/b")).match("a/x/y/b"))
+        #expect(!Pattern(tokens: Token.tokenize(line: "a/**/b")).match("a/c"))
+
+        // Others
+        #expect(Pattern(tokens: Token.tokenize(line: "a/b**/c")).match("a/bbb/c"))
+        #expect(Pattern(tokens: Token.tokenize(line: "a/b**c/d")).match("a/bbbc/d"))
+        #expect(!Pattern(tokens: Token.tokenize(line: "a/b**c/d")).match("a/bbb/d"))
+        #expect(Pattern(tokens: Token.tokenize(line: "**a/b/c")).match("aaa/b/c"))
+        #expect(Pattern(tokens: Token.tokenize(line: "a/b/c**")).match("a/b/ccc"))
     }
 }
