@@ -1,12 +1,12 @@
 import Foundation
 
-public enum CodeOwnerLine: Sendable, Equatable {
+public enum CodeOwnerLine: Sendable, Hashable {
     case codeOwner(CodeOwner)
     case comment(String)
     case invalid(line: String, reason: CodeOwnerLineInvalidReason)
 }
 
-public enum CodeOwnerLineInvalidReason: Error, Sendable, Equatable {
+public enum CodeOwnerLineInvalidReason: Error, Sendable, Hashable {
     case emptyLine
     case invalidOwner
     case intermediateComment

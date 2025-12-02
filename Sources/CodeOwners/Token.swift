@@ -1,4 +1,4 @@
-public enum Token: Equatable, Sendable {
+public enum Token: Hashable, Sendable {
     case slash // "/"
     case asterisk // "*"
     case questionMark // "?"

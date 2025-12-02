@@ -1,4 +1,4 @@
-public struct CodeOwners {
+public struct CodeOwners: Sendable, Hashable {
     public var lines: [CodeOwnerLine]
 
     public init(lines: [CodeOwnerLine]) {
@@ -29,4 +29,3 @@ extension CodeOwners {
         return CodeOwners(lines: codeOwnerLines)
     }
 }
-
