@@ -1,4 +1,4 @@
-public struct CodeOwner: Sendable, Equatable {
+public struct CodeOwner: Sendable, Hashable {
     public var pattern: Pattern
     public var owners: [Owner]
     public var inlineComment: String?
@@ -10,7 +10,7 @@ public struct CodeOwner: Sendable, Equatable {
     }
 }
 
-public enum Owner: Sendable, Equatable {
+public enum Owner: Sendable, Hashable {
     case user(UserIdentifier)
     case team(TeamIdentifier)
 
@@ -37,12 +37,12 @@ public enum Owner: Sendable, Equatable {
     }
 }
 
-public enum UserIdentifier: Sendable, Equatable {
+public enum UserIdentifier: Sendable, Hashable {
     case email(String)
     case userName(String)
 }
 
-public struct TeamIdentifier: Sendable, Equatable {
+public struct TeamIdentifier: Sendable, Hashable {
     public var organization: String
     public var name: String
 

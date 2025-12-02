@@ -1,4 +1,4 @@
-public struct Pattern: Sendable, Equatable  {
+public struct Pattern: Sendable, Hashable {
     public var tokens: [Token]
     public var isDirectory: Bool {
         tokens.last == .slash
