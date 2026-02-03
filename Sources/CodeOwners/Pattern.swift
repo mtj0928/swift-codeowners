@@ -107,7 +107,8 @@ public struct Pattern: Sendable, Hashable {
 
             switch token {
             case .slash, .space, .comment:
-                assertionFailure("Logic error")
+                // These tokens should never appear in PathPattern context
+                // as they are filtered out during tokenization
                 return false
             case .identifier(let string):
                 if targetString.hasPrefix(string) {
